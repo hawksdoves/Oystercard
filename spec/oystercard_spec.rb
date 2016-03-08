@@ -47,7 +47,7 @@ describe Oystercard do
     end
 
 	  it 'reduces the balance' do
-	  	expect{subject.touch_out station1}.to change{subject.balance}.by -Oystercard::MIN_FARE
+	  	expect{subject.touch_out station1}.to change{subject.balance}.by -Journey::MIN_FARE
 	  end
 
     it 'changes the entry station to nil when no longer in transit' do
