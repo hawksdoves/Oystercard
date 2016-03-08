@@ -4,6 +4,8 @@ describe Oystercard do
 
   subject(:oystercard) { described_class.new }
   let(:station) { double :station }
+  let(:station1) { double :station }
+  let(:journey) {double :journey}
 
   describe '#balance' do
     it 'initializes with an empty balance' do
@@ -29,10 +31,10 @@ describe Oystercard do
       expect{ subject.touch_in station}.to raise_error Oystercard::MIN_BALANCE_ERROR
     end
 
-    it 'remembers the station where the card was touched in implying still in travel' do
+    it 'remembers the station where the card was touched in' do
       subject.top_up 10
       subject.touch_in station
-      expect(subject.entry_station).to eq station
+      expect(subject.history).to eq [station => "nil"]
     end
 
   end
@@ -45,12 +47,28 @@ describe Oystercard do
     end
 
 	  it 'reduces the balance' do
-	  	expect{subject.touch_out }.to change{subject.balance}.by -Oystercard::MIN_FARE
+	  	expect{subject.touch_out station1}.to change{subject.balance}.by -Oystercard::MIN_FARE
 	  end
 
     it 'changes the entry station to nil when no longer in transit' do
-      subject.touch_out
+      subject.touch_out station1
       expect(subject.entry_station).to eq nil
     end
+  end
+
+  describe '#journey history' do
+
+  	it 'remembers journeys taken' do
+  		subject.top_up 10
+	  	subject.touch_in station
+		subject.touch_out station1
+		a_hash = Hash.new
+		a_hash[station] = station1
+		expect(subject.history[-1]).to eq a_hash
+	end
+
+	it "starts with no history" do
+		expect(subject.history).to be_empty
+	end
   end
 end
