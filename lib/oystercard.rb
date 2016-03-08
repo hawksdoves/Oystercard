@@ -4,6 +4,7 @@ class Oystercard
 
   MAX_BALANCE = 90
   MIN_BALANCE = 1
+  MIN_FARE = 2
   MAX_BALANCE_ERROR = "Maximum balance is £#{MAX_BALANCE}."
   MIN_BALANCE_ERROR = "You do not have enough funds for this journey."
 
@@ -16,21 +17,24 @@ class Oystercard
     @balance += amount
   end
 
-  def deduct amount
-    @balance -= amount
-  end
-
   def touch_in
     fail MIN_BALANCE_ERROR if @balance < MIN_BALANCE
   	@in_travel = true
   end
 
-  def touch_out
+  def touch_out(amount)
   	@in_travel = false
+  	deduct(amount)
   end
 
   def in_journey?
   	@in_travel
+  end
+
+  private
+
+  def deduct amount
+    @balance -= amount
   end
 
 end

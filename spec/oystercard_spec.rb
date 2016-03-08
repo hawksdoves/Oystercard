@@ -6,26 +6,20 @@ describe Oystercard do
 
   describe '#balance' do
     it 'initializes with an empty balance' do
-      expect(oystercard.balance).to eq(0)
+      expect(subject.balance).to eq(0)
     end
   end
 
   describe '#top_up' do
     it 'increases balance by argument when you top up' do
-      expect{ oystercard.top_up 1 }.to change{ oystercard.balance }.by 1
+      expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
     end
 
     it 'has a maximum balance of £90' do
       error = Oystercard::MAX_BALANCE_ERROR
-      expect{oystercard.top_up(Oystercard::MAX_BALANCE + 1)}.to raise_error error
+      expect{subject.top_up(Oystercard::MAX_BALANCE + 1)}.to raise_error error
     end
 
-  end
-
-  describe '#deduct' do
-    it 'deducts fare cost from the card balance' do
-      expect{ oystercard.deduct 1}.to change{oystercard.balance}.by -1
-    end
   end
 
   describe '#touch_in' do
@@ -43,10 +37,18 @@ describe Oystercard do
 
   describe '#touch_out' do
 
-  it 'returns in travel as false' do
-  	expect(subject.touch_out).to eq false
-  end
+	  it 'returns in journey to become false' do
+	  	subject.top_up 10
+	  	subject.touch_in
+	  	subject.touch_out Oystercard::MIN_FARE
+	  	expect(subject).not_to be_in_journey
+	  end
 
+	  it 'reduces the balance' do
+	  	subject.top_up 10
+	  	subject.touch_in
+	  	expect{subject.touch_out Oystercard::MIN_FARE}.to change{subject.balance}.by -Oystercard::MIN_FARE
+	  end
   end
 
   describe '#in_journey' do
