@@ -18,12 +18,14 @@ attr_reader :a_journey
  		@a_journey[my_key] = exit_station
  	end
 
-  def incomplete?
-    a_journey.has_key?("nil") || a_journey.has_value?("nil")
-  end
-
   def fare
     incomplete? ? PENALTY_FARE : MIN_FARE
+  end
+
+  private
+
+  def incomplete?
+    a_journey.has_key?("nil") || a_journey.has_value?("nil")
   end
 
  end

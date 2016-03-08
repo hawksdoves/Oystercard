@@ -34,14 +34,6 @@ describe Journey do
 
   end
 
-  describe '#incomplete?' do
-
-    it 'will return incomplete if passenger does not touch out' do
-      subject.begin("Euston")
-      expect(subject).to be_incomplete
-    end
-  end
-
   describe '#fare' do
 
     it 'will charge the minimum fare for a journey if journey is complete' do
