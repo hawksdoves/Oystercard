@@ -1,7 +1,8 @@
-
 require_relative 'journey'
 
 class JourneyLog
+
+	attr_reader :journey
 
 	def initialize
 		@history = []
@@ -9,22 +10,24 @@ class JourneyLog
 
 	def start entry_station
 		journey = Journey.new
-	    journey.begin(entry_station)
-	   	@history << journey.a_journey
+	  journey.begin(entry_station)
+	   @history << journey
 	end
 
-	def end exit_station
-		 my_key = @history[-1].keys[0]
-    	@history[-1][my_key] = exit_station
+	def finish exit_station
+		current_journey
+		my_key = @history[-1].a_journey.keys[0]
+  	@history[-1].a_journey[my_key] = exit_station
 	end
 
 	def journeys
 		@history
 	end
 
-	private
+
 
 	def current_journey
-		incomplete? ?  "blah" : Journey.new
+		@history[-1].incomplete? ?  @history[-1] : Journey.new
 	end
+
 end

@@ -1,9 +1,9 @@
- class Journey
+class Journey
 
-    MIN_FARE = 2
-    PENALTY_FARE = 6
+  attr_reader :a_journey
 
-attr_reader :a_journey
+  MIN_FARE = 2
+  PENALTY_FARE = 6
 
  	def initialize
  		@a_journey = Hash.new
@@ -26,4 +26,4 @@ attr_reader :a_journey
     a_journey.has_key?("nil") || a_journey.has_value?("nil")
   end
 
- end
+end

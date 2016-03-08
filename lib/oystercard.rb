@@ -1,7 +1,6 @@
 require_relative 'journeylog'
 require_relative 'station'
 
-
 class Oystercard
 
   attr_reader :balance , :history
@@ -29,7 +28,7 @@ class Oystercard
   def touch_out exit_station
     journey = Journey.new
   	deduct journey.fare
-  	@log.end exit_station
+  	@log.finish exit_station
   end
 
   private
