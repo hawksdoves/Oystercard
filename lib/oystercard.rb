@@ -3,7 +3,9 @@ class Oystercard
   attr_reader :balance
 
   MAX_BALANCE = 90
-  MAX_BALANCE_ERROR = "maximum balance is £#{MAX_BALANCE}"
+  MIN_BALANCE = 1
+  MAX_BALANCE_ERROR = "Maximum balance is £#{MAX_BALANCE}."
+  MIN_BALANCE_ERROR = "You do not have enough funds for this journey."
 
   def initialize
     @balance = 0
@@ -19,6 +21,7 @@ class Oystercard
   end
 
   def touch_in
+    fail MIN_BALANCE_ERROR if @balance < MIN_BALANCE
   	@in_travel = true
   end
 

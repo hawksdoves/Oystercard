@@ -31,13 +31,18 @@ describe Oystercard do
   describe '#touch_in' do
 
   	it 'returns in travel as true' do
+      subject.top_up 5
   		expect(subject.touch_in).to eq true
   	end
+
+    it 'requires a minimum balance to travel' do
+      expect{ subject.touch_in }.to raise_error Oystercard::MIN_BALANCE_ERROR
+    end
 
   end
 
   describe '#touch_out' do
-  
+
   it 'returns in travel as false' do
   	expect(subject.touch_out).to eq false
   end
@@ -46,6 +51,7 @@ describe Oystercard do
 
   describe '#in_journey' do
   	it 'returns true when when someone has touched in' do
+      subject.top_up 5
   		subject.touch_in
   		expect(subject).to be_in_journey
   	end
