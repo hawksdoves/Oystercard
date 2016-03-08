@@ -28,4 +28,26 @@ describe Oystercard do
     end
   end
 
+  describe '#touch_in' do
+
+  	it 'returns in travel as true' do
+  		expect(subject.touch_in).to eq true
+  	end
+
+  end
+
+  describe '#touch_out' do
+  
+  it 'returns in travel as false' do
+  	expect(subject.touch_out).to eq false
+  end
+
+  end
+
+  describe '#in_journey' do
+  	it 'returns true when when someone has touched in' do
+  		subject.touch_in
+  		expect(subject).to be_in_journey
+  	end
+  end
 end
