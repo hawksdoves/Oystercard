@@ -3,6 +3,7 @@ require 'oystercard'
 describe Oystercard do
 
   subject(:oystercard) { described_class.new }
+  let(:station) { double :station }
 
   describe '#balance' do
     it 'initializes with an empty balance' do
@@ -24,38 +25,32 @@ describe Oystercard do
 
   describe '#touch_in' do
 
-  	it 'returns in travel as true' do
-      subject.top_up 5
-  		expect(subject.touch_in).to eq true
-  	end
-
     it 'requires a minimum balance to travel' do
-      expect{ subject.touch_in }.to raise_error Oystercard::MIN_BALANCE_ERROR
+      expect{ subject.touch_in station}.to raise_error Oystercard::MIN_BALANCE_ERROR
+    end
+
+    it 'remembers the station where the card was touched in implying still in travel' do
+      subject.top_up 10
+      subject.touch_in station
+      expect(subject.entry_station).to eq station
     end
 
   end
 
   describe '#touch_out' do
 
-	  it 'returns in journey to become false' do
-	  	subject.top_up 10
-	  	subject.touch_in
-	  	subject.touch_out Oystercard::MIN_FARE
-	  	expect(subject).not_to be_in_journey
-	  end
+    before(:each) do
+      subject.top_up 10
+	  	subject.touch_in station
+    end
 
 	  it 'reduces the balance' do
-	  	subject.top_up 10
-	  	subject.touch_in
-	  	expect{subject.touch_out Oystercard::MIN_FARE}.to change{subject.balance}.by -Oystercard::MIN_FARE
+	  	expect{subject.touch_out }.to change{subject.balance}.by -Oystercard::MIN_FARE
 	  end
-  end
 
-  describe '#in_journey' do
-  	it 'returns true when when someone has touched in' do
-      subject.top_up 5
-  		subject.touch_in
-  		expect(subject).to be_in_journey
-  	end
+    it 'changes the entry station to nil when no longer in transit' do
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
+    end
   end
 end
