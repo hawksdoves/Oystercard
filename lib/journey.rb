@@ -22,8 +22,6 @@ attr_reader :a_journey
     incomplete? ? PENALTY_FARE : MIN_FARE
   end
 
-  private
-
   def incomplete?
     a_journey.has_key?("nil") || a_journey.has_value?("nil")
   end
