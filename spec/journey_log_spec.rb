@@ -23,8 +23,16 @@ let(:station2) {double :station, :name => "Kings Cross", :zone => 1}
 
 		it '2.0 allows you to put a new Journey into the journeys array' do
 			journey_log.start(station)
-			expect(journey_log.journeys[0]).to eq Journey
+			expect(journey_log.journeys[0].entry_station).to eq station
 		end
 	end
 
+  describe '#finish' do
+
+    it '3.0 allows you to put an exit station into the current journey' do
+      journey_log.start(station)
+			journey_log.finish(station2)
+      expect(journey_log.journeys[0].exit_station).to eq station2
+    end
+  end
 end

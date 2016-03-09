@@ -12,8 +12,20 @@ class Journeylog
   end
 
   def start(at)
-  	@journey_class.new.entry(at)
-  	@journeys << @journey_class
+  	my_journey = @journey_class.new
+    my_journey.entry(at)
+    @journeys << my_journey
   end
 
+  def finish(at)
+    if @journeys[-1].entry_station == nil
+      anything = current_journey
+      @journeys << anything
+    end
+      @journeys[-1].exit(at)
+  end
+
+  def current_journey
+    @journeys[-1].complete? ? @journey_class.new  : @journeys[-1]
+  end
 end
