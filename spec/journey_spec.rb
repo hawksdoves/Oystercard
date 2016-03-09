@@ -47,4 +47,23 @@ let(:station2) {double :station, :name => "Kings Cross", :zone => 1}
   	end
   end
 
+  describe '#complete?' do
+    it '5.0 returns true following tap in then tap out' do
+      journey.start(station)
+      journey.finish(station2)
+      expect(journey).to be_complete
+    end
+
+    it '5.1 returns false when tap in and not out' do
+      journey.start(station)
+      expect(journey).not_to be_complete
+    end
+
+    it '5.2 returns false when tap out and not in' do
+      journey.finish(station2)
+      expect(journey).not_to be_complete
+    end
+
+  end
+
 end
