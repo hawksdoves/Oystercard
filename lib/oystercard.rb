@@ -1,5 +1,5 @@
 require_relative 'station'
-require_relative 'journey'
+require_relative 'journey_log'
 
 class Oystercard
   attr_reader :balance, :journey_history
@@ -24,14 +24,14 @@ class Oystercard
     raise ERROR_1 if @balance < MIN_BALANCE
     @entry_station = station
     current_journey = Journey.new
-    current_journey.start(station)
+    current_journey.entry(station)
     journey_history << current_journey
   end
 
   def tap_out(station)
     deduct(Journey::MIN_FARE)
     @exit_station = station
-    @journey_history[-1].finish(station)
+    @journey_history[-1].exit(station)
     @entry_station = nil
   end
 
@@ -47,7 +47,7 @@ class Oystercard
   end
 
   # def log
-  #   @journey_history[:start] = @entry_station
+  #   @journey_history[:entry] = @entry_station
   #   @journey_history[:end] = @exit_station
   # end
 
