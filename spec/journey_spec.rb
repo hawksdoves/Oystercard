@@ -5,9 +5,12 @@ describe Journey do
 let(:journey) {described_class.new}
 let(:station) {double :station, :name => "Old Street", :zone => 1}
 let(:station2) {double :station, :name => "Kings Cross", :zone => 1}
+let(:station3) {double :station, :name => "Camden Town", :zone => 3}
+let(:station4) {double :station, :name => "Wimbledon", :zone => 3}
+let(:station5) {double :station, :name => "Elephant + Castle", :zone => 5}
 
   describe '#initialize' do
-  	
+
 	  it '1.0 initializes with entry station as nil' do
 	  	expect(journey.entry_station).to be nil
 	  end
@@ -38,15 +41,27 @@ let(:station2) {double :station, :name => "Kings Cross", :zone => 1}
 
   describe '#fare' do
 
-  	it '4.0 returns the minimum fare' do
-  		journey.entry(station)
-  		journey.exit(station2)
-  		expect(journey.fare).to eq Journey::MIN_FARE
-  	end
-
-  	it '4.1 returns the penalty fare' do
+  	it '4.0 returns the penalty fare' do
   		expect(journey.fare).to eq Journey::PENALTY_FARE
   	end
+
+    it '4.1 a trip from Old Street to E+C costs £5' do
+      journey.entry(station)
+      journey.exit(station5)
+      expect(journey.fare).to eq 5
+  	end
+
+    it '4.2 a trip from Old Street to Kings X costs £1' do
+      journey.entry(station)
+      journey.exit(station2)
+      expect(journey.fare).to eq 1
+    end
+
+    it '4.2 a trip from Old Street to Kings X costs £1' do
+      journey.entry(station)
+      journey.entry(station2)
+      expect(journey.fare).to eq Journey::PENALTY_FARE
+    end
 
   end
 

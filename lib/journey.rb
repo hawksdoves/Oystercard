@@ -4,7 +4,7 @@ require_relative 'oystercard'
 
 class Journey
 
-	MIN_FARE = 2
+	MIN_FARE = 1
 	PENALTY_FARE = 6
 
 	attr_reader :entry_station , :exit_station
@@ -23,9 +23,16 @@ class Journey
 	end
 
 	def fare
-		!@entry_station || !@exit_station ? PENALTY_FARE : MIN_FARE
+		!@entry_station || !@exit_station ? PENALTY_FARE : charge
 	end
 
+  def zones_crossed
+    @exit_station.zone - @entry_station.zone
+  end
+
+  def charge
+    MIN_FARE + zones_crossed
+  end
 
   def complete?
     !!@entry_station && !!@exit_station
