@@ -18,14 +18,25 @@ class Journeylog
   end
 
   def finish(at)
-    if @journeys[-1].entry_station == nil
-      anything = current_journey
-      @journeys << anything
+ 	if !latest_journey.complete? && latest_journey.exit_station !=nil
+ 	  my_journey = @journey_class.new
+ 	  my_journey.exit(at)
+ 	  @journeys << my_journey
+ 	elsif !latest_journey.complete? && latest_journey.entry_station !=nil
+ 	  current_journey.exit(at)
+ 	else
+      current_journey.exit(at)
+      @journeys << current_journey
     end
-      @journeys[-1].exit(at)
   end
 
   def current_journey
-    @journeys[-1].complete? ? @journey_class.new  : @journeys[-1]
+    latest_journey.complete? ? @journey_class.new  : latest_journey
+  end
+
+private 
+
+  def latest_journey
+  	@journeys[-1]
   end
 end

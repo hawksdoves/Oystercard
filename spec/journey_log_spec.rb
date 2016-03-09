@@ -23,16 +23,25 @@ let(:station2) {double :station, :name => "Kings Cross", :zone => 1}
 
 		it '2.0 allows you to put a new Journey into the journeys array' do
 			journey_log.start(station)
-			expect(journey_log.journeys[0].entry_station).to eq station
+			expect(journey_log.journeys[-1].entry_station).to eq station
 		end
 	end
 
   describe '#finish' do
 
-    it '3.0 allows you to put an exit station into the current journey' do
+    it '3.0 allows you to put an exit station into the current journey, when the passenger has tapped in' do
       journey_log.start(station)
-			journey_log.finish(station2)
-      expect(journey_log.journeys[0].exit_station).to eq station2
+	  journey_log.finish(station2)
+      expect(journey_log.journeys[-1].exit_station).to eq station2
     end
+
+    it '3.1 creates a new journey and puts it into journeys when last journey was completed and the passenger did not tap in for this journey' do
+      journey_log.start(station)
+	  journey_log.finish(station2)
+	  journey_log.finish(station)
+	  expect(journey_log.journeys[-1]).to eq station
+    end	
+
+
   end
 end
