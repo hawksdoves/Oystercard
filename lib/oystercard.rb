@@ -14,16 +14,16 @@ class Oystercard
     @journey_history = []
   end
 
-  def top_up(amount) 
+  def top_up(amount)
     raise ERROR if (@balance + amount) > MAX_BALANCE
     @balance += amount
   end
 
 
-  def tap_in(station)    
+  def tap_in(station)
     raise ERROR_1 if @balance < MIN_BALANCE
     @entry_station = station
-    current_journey = Journey.new  
+    current_journey = Journey.new
     current_journey.start(station)
     journey_history << current_journey
   end

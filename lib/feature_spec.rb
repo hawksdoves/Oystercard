@@ -1,18 +1,13 @@
 require_relative 'oystercard'
+require_relative 'station'
+require_relative 'oystercard'
+require_relative 'journey'
+require_relative 'journey_log'
 
-p card = Oystercard.new
-p 1
-p card.entry_station
-p 2
+p journey = Journey.new
 
-card.top_up(20)
+p jlog = Journeylog.new(Journey)
 
-card.tap_in("Shoreditch")
-p 3
-p card.entry_station
 
-p card.in_journey?
 
-card.tap_out("Hoxton")
-
-p card.journey_history
+p jlog.store
