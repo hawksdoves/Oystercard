@@ -12,7 +12,7 @@ journey.entry(hello)
 journey.exit(bye)
 
 p journey.fare
-p jlog.view_journeys[0]
+
 
 p '************* HAS TAPPED IN **************'
 

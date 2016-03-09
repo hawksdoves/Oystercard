@@ -18,11 +18,11 @@ class Journeylog
     end
 
     def finish(at)
-   	if !latest_journey.complete? && latest_journey.exit_station != nil
+   	if !latest_journey.complete? && !latest_journey.exit_station
      	  my_journey = @journey_class.new
      	  my_journey.exit(at)
      	  @journeys << my_journey
-   	elsif !latest_journey.complete? && latest_journey.entry_station != nil
+   	elsif !latest_journey.complete? && !latest_journey.entry_station
      	  current_journey.exit(at)
    	else
         something = current_journey

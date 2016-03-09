@@ -26,6 +26,12 @@ class Journey
 		!@entry_station || !@exit_station ? PENALTY_FARE : charge
 	end
 
+  def complete?
+    !!@entry_station && !!@exit_station
+  end
+
+private
+
   def zones_crossed
     @exit_station.zone - @entry_station.zone
   end
@@ -34,7 +40,5 @@ class Journey
     MIN_FARE + zones_crossed
   end
 
-  def complete?
-    !!@entry_station && !!@exit_station
-  end
+
 end
