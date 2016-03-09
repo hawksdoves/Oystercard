@@ -33,18 +33,9 @@ describe Oystercard do
 
   describe '#tap_in' do
 
-    it '3.0 is in journey' do
-      expect(oystercard).to be_in_journey
-    end
-
     it '3.1 if balance < 1 ERROR - INSUFFICIENT FUNDS' do
       expect{subject.tap_in(station)}.to raise_error Oystercard::ERROR_1
     end
-
-    it '3.2 stores entry station' do
-      expect(oystercard.journey_history).not_to be_empty
-    end
-
   end
 
   describe '#tap_out' do
@@ -53,27 +44,11 @@ describe Oystercard do
       oystercard.tap_out(station2)
     end
 
-    it '4.0 is not in journey' do
-      expect(oystercard).not_to be_in_journey
-    end
 
     it '4.1 deducts minimum fare from balance' do
       expect{oystercard.tap_out(station)}.to change{oystercard.balance}.by(-Journey::MIN_FARE)
     end
-
-    it '4.2 stores exit station' do
-      expect(oystercard.journey_history[0].exit_station).to eq station2
-    end
-
   end
 
-  describe '#journey_history' do
-
-    it '5.0 is an empty history' do
-      oyster = Oystercard.new
-      expect(oyster.journey_history).to be_empty
-    end
-
-  end
 
 end

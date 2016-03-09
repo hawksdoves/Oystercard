@@ -8,23 +8,24 @@ bye = Station.new("bye", 9)
 
 jlog = Journeylog.new
 
-jlog.journeys
+jlog.view_journeys
 
 jlog.start(hello)
 
-p jlog.journeys[0]
+p jlog.view_journeys[0]
 
 p '************* HAS TAPPED IN **************'
-p jlog.current_journey
+
 p '************* HAS TAPPED OUT **************'
 
 jlog.finish(bye)
 
-p jlog.journeys[0]
+p jlog.view_journeys[0]
 
 p '*************** INCORRECT TAP OUT************'
 
-p jlog.current_journey
+
  jlog.finish(hello)
 
-p jlog.journeys
+p jlog.view_journeys << "this is going to fuck shit up"
+p jlog.view_journeys

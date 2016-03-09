@@ -1,5 +1,5 @@
-# require_relative 'station'
-# require_relative 'oystercard'
+require_relative 'station'
+require_relative 'oystercard'
 
 
 class Journey
@@ -12,14 +12,14 @@ class Journey
 	def initialize
 		@entry_station = nil
 		@exit_station = nil
-    end
+  end
 
-	def entry(station)
-		@entry_station = station
+	def entry(at)
+		@entry_station = at
 	end
 
-	def exit(station)
-		@exit_station = station
+	def exit(at)
+		@exit_station = at
 	end
 
 	def fare
@@ -27,8 +27,7 @@ class Journey
 	end
 
 
-	def complete?
-	  !!@entry_station && !!@exit_station
-	end
-
+  def complete?
+    !!@entry_station && !!@exit_station
+  end
 end
