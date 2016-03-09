@@ -1,4 +1,4 @@
-require 'oystercard'
+require 'station'
 
 
 describe Station do
@@ -7,17 +7,17 @@ describe Station do
 
 	describe '#name' do
 
-	  it "1.0 returns the station name" do
-	    expect(station.name).to eq "Shoreditch"
-	  end
+	  	it "1.0 returns the station name" do
+	    	expect(station.name).to eq "Shoreditch"
+	  	end
 
 	end
 
 	describe '#zone' do
 
-	  it "2.0 returns the station zone" do
-	    expect(station.zone).to eq 1
-	  end
+	  	it "2.0 returns the station zone" do
+	    	expect(station.zone).to eq 1
+	  	end
 
 	end
 

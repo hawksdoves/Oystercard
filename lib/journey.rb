@@ -12,7 +12,7 @@ class Journey
 	def initialize
 		@entry_station = nil
 		@exit_station = nil
-  end
+  	end
 
 	def entry(at)
 		@entry_station = at
@@ -26,19 +26,18 @@ class Journey
 		!@entry_station || !@exit_station ? PENALTY_FARE : charge
 	end
 
-  def complete?
-    !!@entry_station && !!@exit_station
-  end
+  	def complete?
+    	!!@entry_station && !!@exit_station
+  	end
 
-private
+	private
 
-  def zones_crossed
-    @exit_station.zone - @entry_station.zone
-  end
+  	def zones_crossed
+    	@exit_station.zone - @entry_station.zone
+  	end
 
-  def charge
-    MIN_FARE + zones_crossed
-  end
-
-
+  	def charge
+    	MIN_FARE + zones_crossed
+  	end
+  	
 end
