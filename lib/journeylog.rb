@@ -18,12 +18,11 @@ class JourneyLog
 		current_journey.end_at(at_station)
 	end
 
-  def history
-    @journeys.dup
-  end
+  	def history
+    	@journeys.dup
+  	end
 
 	private
-  attr_reader :journeys
 
 	def current_journey
 		if @journeys.empty? || @journeys.last.exit_station
